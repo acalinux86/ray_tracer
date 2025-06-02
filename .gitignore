@@ -6,3 +6,6 @@ build/
 
 # Ignore Object Files
 obj/
+
+# Ignore Image Folder
+image/
