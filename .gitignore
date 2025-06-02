@@ -1,0 +1,8 @@
+# Ignore Build Executable
+main
+
+# Ignore Build Folder
+build/
+
+# Ignore Object Files
+obj/
