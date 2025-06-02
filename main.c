@@ -65,7 +65,7 @@ int main(void)
     if (!build_cmd(&cmd)) return 1;
     cmd.count = 0;
 
-    const char *build_ray_tracer[] = {CC, "-Wall", "-ggdb", "-I./thirdparty/", "-I./vector/", OBJ_DIR"vector2.o", OBJ_DIR"vector3.o", OBJ_DIR"camera.o", OBJ_DIR"light.o", OBJ_DIR"ray.o", OBJ_DIR"render.o", OBJ_DIR"shapes.o", OBJ_DIR"scene.o", OBJ_DIR"lexer.o", SRC_DIR"ray_tracer.c", "-o", BUILD_DIR"ray_tracer", "-lm",NULL};
+    const char *build_ray_tracer[] = {CC, "-Wall", "-ggdb", "-I./thirdparty/", "-I./vector/", "-I./lexer/", OBJ_DIR"vector2.o", OBJ_DIR"vector3.o", OBJ_DIR"camera.o", OBJ_DIR"light.o", OBJ_DIR"ray.o", OBJ_DIR"render.o", OBJ_DIR"shapes.o", OBJ_DIR"scene.o", OBJ_DIR"lexer.o", SRC_DIR"ray_tracer.c", "-o", BUILD_DIR"ray_tracer", "-lm",NULL};
     append_to_array_many(&cmd, build_ray_tracer);
     if (!build_cmd(&cmd)) return 1;
     cmd.count = 0;

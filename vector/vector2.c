@@ -3,7 +3,7 @@
 // Function that creates a vector from three given values
 Vector2 Create_Vector2(float x, float y) {
     Vector2 vec = CREATE_MATRIX(2, 1);
-    float values[3] = {x, y};
+    float values[2] = {x, y};
     for (size_t i = 0; i < 2; i++) {
         SET_ELEMENT(vec, i, 0, values[i]);
     }
