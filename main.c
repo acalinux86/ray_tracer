@@ -5,6 +5,7 @@
 #define SRC_DIR   "src/"    // Source Directory
 #define VEC_DIR   "vector/" // Vector Directory
 #define OBJ_DIR   "obj/"    // Object Directory
+#define LEX_DIR   "lexer/"  // Lexer Directory
 
 // C Compiler
 const char *CC = "gcc";
@@ -59,7 +60,12 @@ int main(void)
     if (!build_cmd(&cmd)) return 1;
     cmd.count = 0;
 
-    const char *build_ray_tracer[] = {CC, "-Wall", "-ggdb", "-I./thirdparty/", "-I./vector/", OBJ_DIR"vector2.o", OBJ_DIR"vector3.o", OBJ_DIR"camera.o", OBJ_DIR"light.o", OBJ_DIR"ray.o", OBJ_DIR"render.o", OBJ_DIR"shapes.o", OBJ_DIR"scene.o", SRC_DIR"ray_tracer.c", "-o", BUILD_DIR"ray_tracer", "-lm",NULL};
+    const char *build_lexer[] = {CC, "-Wall", "-Werror", "-Wextra", "-ggdb", "-std=c17", "-D_DEFAULT_SOURCE", "-I./thirdparty/", "-c", LEX_DIR"lexer.c", "-o", OBJ_DIR"lexer.o", "-lm",NULL};
+    append_to_array_many(&cmd, build_lexer);
+    if (!build_cmd(&cmd)) return 1;
+    cmd.count = 0;
+
+    const char *build_ray_tracer[] = {CC, "-Wall", "-ggdb", "-I./thirdparty/", "-I./vector/", OBJ_DIR"vector2.o", OBJ_DIR"vector3.o", OBJ_DIR"camera.o", OBJ_DIR"light.o", OBJ_DIR"ray.o", OBJ_DIR"render.o", OBJ_DIR"shapes.o", OBJ_DIR"scene.o", OBJ_DIR"lexer.o", SRC_DIR"ray_tracer.c", "-o", BUILD_DIR"ray_tracer", "-lm",NULL};
     append_to_array_many(&cmd, build_ray_tracer);
     if (!build_cmd(&cmd)) return 1;
     cmd.count = 0;

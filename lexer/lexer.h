@@ -1,9 +1,9 @@
 #ifndef LEXER_IMPLEMENTATION
 #define LEXER_IMPLEMENTATION
 
-enum KIND {
+typedef enum {
     TOKEN_END,
     TOKEN_SYMBOL,
-};
+} Token_Kind;
 
 #endif /*LEXER_IMPLEMENTATION*/
