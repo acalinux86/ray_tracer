@@ -15,11 +15,11 @@ typedef struct {
 } Ray;
 
 // Creates A New Ray
-Ray *Ray_New(Vector3 origin, Vector3 direction);
+Ray *new_ray(Vector3 origin, Vector3 direction);
 
 // Deallocates a dynamically allocated Ray Members
-void Ray_Free(Ray *ray);
+void free_ray(Ray *ray);
 
 // Checks Whether a Ray has Intersected With a Sphere
-bool RaySphereIntersection(Ray *ray, Sphere *sphere , float *t);
+bool RaySphereIntersection(Ray *ray, Sphere *sphere , float *t_min, float *t_max);
 #endif /*RAY_H*/

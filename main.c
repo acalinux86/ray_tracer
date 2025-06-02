@@ -6,17 +6,23 @@
 #define VEC_DIR   "vector/" // Vector Directory
 #define OBJ_DIR   "obj/"    // Object Directory
 #define LEX_DIR   "lexer/"  // Lexer Directory
+#define IMG_DIR   "images/" // Images Directory
 
 // C Compiler
 const char *CC = "gcc";
 
 int main(void)
 {
+    // Build Folder: Where the final executable is
     if (!remove_directory(BUILD_DIR))   return 1;
     if (!make_new_directory(BUILD_DIR)) return 1;
 
+    // Object Folder: Directory for Object Files
     if (!remove_directory  (OBJ_DIR)) return 1;
     if (!make_new_directory(OBJ_DIR)) return 1;
+
+    // Images Folder: Directory For storing images
+    if (!make_new_directory(IMG_DIR)) return 1;
 
     Fasic_Cmd cmd = {0};
 
@@ -65,7 +71,7 @@ int main(void)
     if (!build_cmd(&cmd)) return 1;
     cmd.count = 0;
 
-    const char *build_ray_tracer[] = {CC, "-Wall", "-ggdb", "-I./thirdparty/", "-I./vector/", "-I./lexer/", OBJ_DIR"vector2.o", OBJ_DIR"vector3.o", OBJ_DIR"camera.o", OBJ_DIR"light.o", OBJ_DIR"ray.o", OBJ_DIR"render.o", OBJ_DIR"shapes.o", OBJ_DIR"scene.o", OBJ_DIR"lexer.o", SRC_DIR"ray_tracer.c", "-o", BUILD_DIR"ray_tracer", "-lm",NULL};
+    const char *build_ray_tracer[] = {CC, "-Wall", "-ggdb", "-I./thirdparty/", "-I./vector/", "-I./lexer/", "-I./stb/",OBJ_DIR"vector2.o", OBJ_DIR"vector3.o", OBJ_DIR"camera.o", OBJ_DIR"light.o", OBJ_DIR"ray.o", OBJ_DIR"render.o", OBJ_DIR"shapes.o", OBJ_DIR"scene.o", OBJ_DIR"lexer.o", SRC_DIR"ray_tracer.c", "-o", BUILD_DIR"ray_tracer", "-lm",NULL};
     append_to_array_many(&cmd, build_ray_tracer);
     if (!build_cmd(&cmd)) return 1;
     cmd.count = 0;

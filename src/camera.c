@@ -1,6 +1,6 @@
 #include "camera.h"
 
-Camera *Camera_Create(Vector3 position, Vector3 look_at, float fov)
+Camera *new_camera(Vector3 position, Vector2 fov)
 {
     Camera *camera = (Camera *)malloc(sizeof(Camera));
     if (camera == NULL) {
@@ -8,34 +8,24 @@ Camera *Camera_Create(Vector3 position, Vector3 look_at, float fov)
         return NULL;
     }
 
-    camera->Fov = fov;
-    camera->LookAt = look_at;
+    camera->fov = fov;
     camera->Position = position;
     return camera;
 }
 
-void Camera_Free(Camera *camera)
+void free_camera(Camera *camera)
 {
     if (camera) {
         UNLOAD(&camera->Position);
-        UNLOAD(&camera->LookAt);
+        UNLOAD(&camera->fov);
         free(camera);
     }
 }
 
-Vector3 GetCameraDirection(const Camera *camera)
+Vector2 get_fov(Vector3 viewport, float distance)
 {
-    if (!camera) return Create_Vector3(0 , 0 , 0);
+    float h = 2 * atan2(GET_ELEMENT(viewport, 0, 0)/2, distance);
+    float v = 2 * atan2(GET_ELEMENT(viewport, 1, 0)/2, distance);
 
-    Vector3 LookAt   = camera->LookAt;
-    Vector3 Position = camera->Position;
-
-    Vector3 Direction = Vector3_Subtract(&LookAt , &Position);
-    Vector3 Normalized_Direction = Vector3_Normalize(&Direction);
-
-    UNLOAD(&LookAt);
-    UNLOAD(&Position);
-    UNLOAD(&Direction);
-
-    return Normalized_Direction;
+    return Create_Vector2(h, v);
 }

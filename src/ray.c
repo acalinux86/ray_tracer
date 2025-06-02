@@ -1,7 +1,7 @@
 #include "ray.h"
 
 // Creates A New Ray
-Ray *Ray_New(Vector3 origin, Vector3 direction)
+Ray *new_ray(Vector3 origin, Vector3 direction)
 {
     Ray *ray = (Ray *) malloc(sizeof(Ray));
     if (ray == NULL) {
@@ -18,7 +18,7 @@ Ray *Ray_New(Vector3 origin, Vector3 direction)
 }
 
 // Deallocates a dynamically allocated Ray Members
-void Ray_Free(Ray *ray)
+void free_ray(Ray *ray)
 {
     if (ray) {
         UNLOAD(&ray->Direction);
@@ -28,7 +28,7 @@ void Ray_Free(Ray *ray)
 }
 
 // Checks Whether a Ray has Intersected With a Sphere
-bool RaySphereIntersection(Ray *ray, Sphere *sphere , float *t) {
+bool RaySphereIntersection(Ray *ray, Sphere *sphere , float *t_min, float *t_max) {
     Vector3 oc = Vector3_Subtract(&ray->Origin, &sphere->position);
     float a = Vector3_Dot(&ray->Direction, &ray->Direction);
     float b = 2.0f * Vector3_Dot(&oc, &ray->Direction);
@@ -42,7 +42,8 @@ bool RaySphereIntersection(Ray *ray, Sphere *sphere , float *t) {
     }
     float t0 = (- b - sqrt(discriminant)) / (2.0f * a);
     float t1 = (- b + sqrt(discriminant)) / (2.0f * a);
-    *t = (t0 > 0) ? t0 : t1;
+    *t_min = t0;
+    *t_max = t1;
     UNLOAD(&oc); // Free oc on true return
     return true;
 }

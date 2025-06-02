@@ -5,7 +5,6 @@
 #include <stdbool.h>
 #include <stdlib.h>
 
-#include "scene.h"
 #include "camera.h"
 #include "shapes.h"
 #include "ray.h"
@@ -14,10 +13,6 @@
 #define FASIC_IMPLEMENTATION
 #define UPPERCASE_
 #include "fasic.h"
-
-// Image Width and Height
-#define WIDTH 1920
-#define HEIGHT 1080
 
 #define SAMPLES 2  // Number of samples per pixel
 
@@ -30,9 +25,11 @@ typedef struct {
 } Pixel;
 
 // Allocates Memory for each pixel totaling (WIDTH*HEIGHT) pixels
-Pixel *pixels_alloc();
+Pixel *pixels_alloc(int width, int height);
 // Free Memory Allocated for the pixels
 void pixels_dealloc(Pixel *pixels);
+// Color a specific pixel
+ void put_pixel(Pixel *pixels, int index, Color color);
 // Writes to the pixels array, each pixel of the sphere that has intersected the ray
-void RenderSphere(Sphere *sphere, Pixel *pixels);
+void RenderSphere(Sphere *sphere, Pixel *pixels, int width, int height);
 #endif // RENDER_H

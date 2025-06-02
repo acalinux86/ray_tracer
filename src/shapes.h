@@ -58,8 +58,9 @@ bool delete_object(Objects *objs, unsigned int index);
 void pop_object(Objects *objs);
 Object deep_copy_object(const Object *source);
 
-Sphere *Sphere_Create(Vector3 position, float radius, Color color);
-void Sphere_Free(Sphere *sphere);
+Sphere *new_sphere(Vector3 position, float radius, Color color);
+Object sphere_to_object(Sphere *sphere);
+void free_sphere(Sphere *sphere);
 Vector3 ComputeSurfaceNormal(Sphere *sphere, Vector3 intersectionPoint);
 
 

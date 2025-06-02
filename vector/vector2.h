@@ -28,6 +28,6 @@ Vector2 Vector2_Normalize(Vector2 *A);
 // Function that Prints a Vector
 void PRINT_VECTOR2(Vector2 vec, const char *name);
 
-#define PRINT_VEC(vec) PRINT_VECTOR2(vec, #vec)
+#define PRINT_VEC2(vec) PRINT_VECTOR2(vec, #vec)
 
 #endif /*VECTOR2_IMPLEMENTATION*/

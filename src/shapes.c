@@ -20,7 +20,7 @@ void free_objects(Objects *objs)
 
 void insert_object(Objects *objs, Object *obj)
 {
-    if (objs->count > objs->capacity) {
+    if (objs->count >= objs->capacity) {
         objs->capacity = objs->capacity == 0 ? INITIAL_CAPACITY : objs->capacity * 2;
         objs->items = realloc(objs->items, sizeof(Object)*objs->capacity);
         if (objs->items == NULL) {
@@ -70,7 +70,7 @@ bool delete_object(Objects *objs, unsigned int index)
 
     switch(target->kind) {
     case OBJECT_SPHERE:
-        Sphere_Free(target->object.sphere);
+        free_sphere(target->object.sphere);
         break;
 
     default:
@@ -113,7 +113,7 @@ Object deep_copy_object(const Object *source)
     return destination;
 }
 
-Sphere *Sphere_Create(Vector3 position, float radius, Color color)
+Sphere *new_sphere(Vector3 position, float radius, Color color)
 {
     Sphere *sphere = (Sphere *) malloc(sizeof(Sphere));
     if (sphere == NULL) {
@@ -127,7 +127,16 @@ Sphere *Sphere_Create(Vector3 position, float radius, Color color)
     return sphere;
 }
 
-void Sphere_Free(Sphere *sphere)
+Object sphere_to_object(Sphere *sphere)
+{
+    Object object;
+    object.object.sphere = sphere;
+    object.kind = OBJECT_SPHERE;
+
+    return object;
+}
+
+void free_sphere(Sphere *sphere)
 {
     if (sphere) {
         UNLOAD(&sphere->position);

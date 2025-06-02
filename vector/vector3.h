@@ -30,6 +30,6 @@ Vector3 Vector3_Normalize(Vector3 *A);
 
 // Function that Prints a Vector
 void PRINT_VECTOR3(Vector3 vec, const char *name);
-#define PRINT_VEC(vec) PRINT_VECTOR3(vec, #vec)
+#define PRINT_VEC3(vec) PRINT_VECTOR3(vec, #vec)
 
 #endif /*VECTOR3_IMPLEMENTATION*/
