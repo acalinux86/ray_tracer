@@ -8,4 +8,4 @@ build/
 obj/
 
 # Ignore Image Folder
-image/
+images/
