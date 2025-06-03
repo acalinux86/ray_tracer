@@ -29,7 +29,7 @@ void insert_object(Objects *objs, Object *obj)
         }
     }
 
-    objs->items[objs->count++] = deep_copy_object(obj);
+    objs->items[objs->count++] = obj;
 }
 
 unsigned int search_object(Objects *objs, const Object *target)
@@ -37,11 +37,11 @@ unsigned int search_object(Objects *objs, const Object *target)
     assert(objs && target);
     if (objs->count == 0) return UINT_MAX;
     for (unsigned int i = 0; i < objs->count; ++i) {
-        if (objs->items[i].kind != target->kind) continue;
+        if (objs->items[i]->kind != target->kind) continue;
 
         switch(target->kind) {
         case OBJECT_SPHERE:
-            const Sphere *current = objs->items[i].object.sphere;
+            const Sphere *current = objs->items[i]->object.sphere;
             const Sphere *target_sphere = target->object.sphere;
             if (current->radius == target_sphere->radius &&
             TEST_MATRIX(current->position, target_sphere->position) &&
@@ -66,7 +66,7 @@ bool delete_object(Objects *objs, unsigned int index)
     if (objs  == NULL) return false;
     if (index >= objs->count) return false;
 
-    Object *target = &objs->items[index];
+    Object *target = objs->items[index];
 
     switch(target->kind) {
     case OBJECT_SPHERE:

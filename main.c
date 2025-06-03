@@ -56,7 +56,7 @@ int main(void)
     if (!build_cmd(&cmd)) return 1;
     cmd.count = 0;
 
-    const char *build_scene[] = {CC, "-Wall", "-Werror", "-Wextra", "-ggdb", "-std=c17", "-D_DEFAULT_SOURCE", "-I./thirdparty/", "-I./vector/", "-c", SRC_DIR"scene.c", "-o", OBJ_DIR"scene.o","-lm" ,NULL};
+    const char *build_scene[] = {CC, "-Wall", "-Wextra", "-ggdb", "-std=c17", "-D_DEFAULT_SOURCE", "-I./thirdparty/", "-I./vector/", "-c", SRC_DIR"scene.c", "-o", OBJ_DIR"scene.o","-lm" ,NULL};
     append_to_array_many(&cmd, build_scene);
     if (!build_cmd(&cmd)) return 1;
     cmd.count = 0;

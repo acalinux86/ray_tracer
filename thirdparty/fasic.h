@@ -39,6 +39,7 @@ typedef enum {
     ERROR,
     DEBUG,
     WARN,
+    USAGE,
     COUNT_LEVELS,
 } Log_Levels;
 
@@ -177,6 +178,7 @@ FASICSTATIC const char * Levels[COUNT_LEVELS] = {
     [ERROR] = "ERROR",
     [DEBUG] = "DEBUG",
     [WARN]  = "WARN",
+    [USAGE] = "USAGE",
 };
 
 FASICSTATIC void Logging(FILE *stream, Log_Levels level, const char *fmt, ...)

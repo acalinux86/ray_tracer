@@ -37,7 +37,7 @@ typedef struct Object {
 
 // Objects Array:
 typedef struct Objects {
-    Object *items;
+    Object **items;
     unsigned int count;
     unsigned int capacity;
 } Objects;

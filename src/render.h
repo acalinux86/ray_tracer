@@ -14,8 +14,6 @@
 #define UPPERCASE_
 #include "fasic.h"
 
-#define SAMPLES 2  // Number of samples per pixel
-
 // Pixel Structure and Information (RGBA)
 typedef struct {
     uint8_t r;
@@ -31,5 +29,5 @@ void pixels_dealloc(Pixel *pixels);
 // Color a specific pixel
  void put_pixel(Pixel *pixels, int index, Color color);
 // Writes to the pixels array, each pixel of the sphere that has intersected the ray
-void RenderSphere(Sphere *sphere, Pixel *pixels, int width, int height);
+void RenderSphere(Sphere *sphere, Pixel *pixels, int width, int height, int samples);
 #endif // RENDER_H

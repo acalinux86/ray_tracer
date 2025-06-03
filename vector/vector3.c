@@ -62,6 +62,18 @@ Vector3 float_vector3_dot(Vector3 *A, float B) {
     return Create_Vector3(B*x , B*y , B*z);
 }
 
+// Length of a vector
+float Magnitude(Vector3 *A)
+{
+    float x , y , z;
+    x = GET_ELEMENT(*A, 0, 0);
+    y = GET_ELEMENT(*A, 1, 0);
+    z = GET_ELEMENT(*A, 2, 0);
+
+    float Magnitude = sqrt(((x*x)+(y*y)+(z*z)));
+    return Magnitude;
+}
+
 // Function that Normalizes a Vector
 Vector3 Vector3_Normalize(Vector3 *A) {
     float x , y , z;
