@@ -3,7 +3,7 @@
 
 #define FASIC_IMPLEMENTATION
 #define UPPERCASE_
-#include "fasic.h"
+#include "./fasic.h"
 
 typedef Fasic_Matrix Vector3;
 
@@ -32,7 +32,7 @@ Vector3 Vector3_Scaling(Vector3 A, float b);
 Vector3 Vector3_Normalize(Vector3 *A);
 
 // Length of a vector
-float Vector3_Length(Vector3 *A);
+float Magnitude(Vector3 *A);
 
 // Function that Prints a Vector
 void PRINT_VECTOR3(Vector3 vec, const char *name);

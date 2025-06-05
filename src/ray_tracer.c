@@ -10,13 +10,18 @@
 #define STB_IMAGE_WRITE_IMPLEMENTATION
 #include "./stb_image_write.h"
 
-#define Z 1.0f
+#define Z 3.0f
 
-#define WHITE ((Color){255, 255, 255, 255})
-#define GREEN ((Color){0,   255, 0,   255})
-#define RED   ((Color){255, 0,   0,   255})
-#define BLUE  ((Color){0,   0,   255, 255})
-#define BLACK ((Color){0,   0,   0 ,  255})
+#define WHITE   ((Color){255, 255, 255, 255})
+#define GREEN   ((Color){0,   255, 0,   255})
+#define RED     ((Color){255, 0,   0,   255})
+#define BLUE    ((Color){0,   0,   255, 255})
+#define BLACK   ((Color){0,   0,   0 ,  255})
+
+#define YELLOW  ((Color){255, 255, 0,   255})
+
+// Viewport
+#define viewport (Create_Vector3(6.0f, 6.0f, Z))
 
 int main(const int argc, const char **argv)
 {
@@ -32,27 +37,27 @@ int main(const int argc, const char **argv)
     Log_Out(INFO, "Hello, World From Ray Tracer.\n");
 
     Objects objects = {0};
-    Sphere *sphere_white = new_sphere(Create_Vector3(0.0f, 0.0f, 5.0f), 1.5f, WHITE);
-    Sphere *sphere_green = new_sphere(Create_Vector3(2.0f, 0.0f, 7.0f), 1.0f, GREEN);
-    Sphere *sphere_red   = new_sphere(Create_Vector3(-2.0f, 0.0f, 7.0f), 1.0f, RED);
-    Sphere *sphere_blue  = new_sphere(Create_Vector3(0.0f, 2.0f, 6.0f), 1.0f, BLUE);
+    Sphere *sphere_white = new_sphere(Create_Vector3(0.0f , -3.0f, 5.0f), 1.2f,  WHITE);
+    Sphere *sphere_green = new_sphere(Create_Vector3(2.0f , 0.0f, 5.0f), 1.0f,  GREEN);
+    Sphere *sphere_red   = new_sphere(Create_Vector3(-2.0f, 0.0f, 5.0f), 1.0f, RED);
+    Sphere *sphere_blue  = new_sphere(Create_Vector3(0.0f , 3.0f, 5.0f), 1.6f, BLUE);
+    Sphere *sphere_yellow  = new_sphere(Create_Vector3(3.0f , -3.0f, 4.0f), 0.6f, YELLOW);
 
     // Create temporary objects on stack
     Object obj_white = sphere_to_object(sphere_white);
     Object obj_green = sphere_to_object(sphere_green);
     Object obj_red   = sphere_to_object(sphere_red);
     Object obj_blue  = sphere_to_object(sphere_blue);
+    Object obj_yellow  = sphere_to_object(sphere_yellow);
 
     insert_object(&objects, &obj_white);
     insert_object(&objects, &obj_green);
     insert_object(&objects, &obj_red);
     insert_object(&objects, &obj_blue);
-
-    // Viewport
-    Vector3 viewport = Create_Vector3(8, 8, Z);
+    insert_object(&objects, &obj_yellow);
 
     // Camera
-    Camera *camera = new_camera(Create_Vector3(0, 0, 2), get_fov(viewport, Z));
+    Camera *camera = new_camera(Create_Vector3(0, 0, -3), get_fov(viewport));
     assert(camera != NULL);
     camera_prop(camera);
 
@@ -61,8 +66,11 @@ int main(const int argc, const char **argv)
     assert(pixels != NULL);
 
     // Light
-    Light *light = new_light(Create_Vector3(5, -5, 2), LIGHT_DIRECTIONAL, 0.5f);
+    Vector3 dir = Create_Vector3(2.0f, 0.4f, 1.0f);
+    Vector3 dir_norm = Vector3_Normalize(&dir);
+    Light *light = new_light(dir_norm, LIGHT_DIRECTIONAL, 1.0f);
     assert(light != NULL);
+    light_prop(light);
 
     // Scene
     Scene scene = {0};
@@ -80,7 +88,10 @@ int main(const int argc, const char **argv)
         return 1;
     }
 
+    Log_Out(INFO, "Successfully Saved Image to %s.\n", image_path);
+
     // Free Resources
+    UNLOAD(&dir);
     free_camera(camera);
     free_light(scene.light);
     pixels_dealloc(pixels);
@@ -89,6 +100,6 @@ int main(const int argc, const char **argv)
     free_sphere(sphere_red);
     free_sphere(sphere_blue);
     free(objects.items);
-    UNLOAD(&viewport);
+//    UNLOAD(&viewport);
     return 0;
 }

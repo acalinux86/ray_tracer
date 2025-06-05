@@ -5,14 +5,14 @@
 #include <stdbool.h>
 #include <stdlib.h>
 
-#include "camera.h"
-#include "shapes.h"
-#include "ray.h"
-#include "light.h"
+#include "./camera.h"
+#include "./shapes.h"
+#include "./ray.h"
+#include "./light.h"
 
 #define FASIC_IMPLEMENTATION
 #define UPPERCASE_
-#include "fasic.h"
+#include "./fasic.h"
 
 // Pixel Structure and Information (RGBA)
 typedef struct {

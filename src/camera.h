@@ -17,6 +17,7 @@ typedef struct {
 
 Camera *new_camera(Vector3 position, Vector2 fov);
 void free_camera(Camera *camera);
-Vector2 get_fov(Vector2 viewport, float distance);
+Vector3 get_fov(Vector3 viewport);
 void camera_prop(const Camera *camera); // Prints Out camera properties
+
 #endif /*CAMERA_H*/

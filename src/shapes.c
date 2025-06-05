@@ -1,4 +1,4 @@
-#include "shapes.h"
+#include "./shapes.h"
 
 const char *object_kinds[COUNT_OBJECT_KINDS] = {
     [OBJECT_SPHERE] = "SPHERE",

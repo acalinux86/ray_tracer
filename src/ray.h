@@ -3,10 +3,10 @@
 
 #define FASIC_IMPLEMENTATION
 #define UPPERCASE_
-#include "fasic.h"
+#include "./fasic.h"
 
-#include "vector3.h"
-#include "shapes.h"
+#include "./vector3.h"
+#include "./shapes.h"
 
 // Ray Structure and Information
 typedef struct {

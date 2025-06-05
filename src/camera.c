@@ -1,4 +1,4 @@
-#include "camera.h"
+#include "./camera.h"
 
 Camera *new_camera(Vector3 position, Vector2 fov)
 {
@@ -22,21 +22,25 @@ void free_camera(Camera *camera)
     }
 }
 
-Vector2 get_fov(Vector3 viewport, float distance)
+Vector3 get_fov(Vector3 viewport)
 {
+    float distance = GET_ELEMENT(viewport, 2, 0);
     float h = 2 * atan2(GET_ELEMENT(viewport, 0, 0)/2, distance);
     float v = 2 * atan2(GET_ELEMENT(viewport, 1, 0)/2, distance);
 
-    h = h * (180.0f/PI);
-    v = v * (180.0f/PI);
-
-    return Create_Vector2(h, v);
+    return Create_Vector3(h, v, distance);
 }
 
 void camera_prop(const Camera *camera)
 {
     Log_Out(INFO, "Camera Properties:\n");
-    PRINT_VEC3(camera->Position);
-    PRINT_VEC3(camera->fov);
-    printf("\n");
+    float x = GET_ELEMENT(camera->Position, 0 , 0);
+    float y = GET_ELEMENT(camera->Position, 1 , 0);
+    float z = GET_ELEMENT(camera->Position, 2 , 0);
+    Log_Out(INFO, "    Camera Position:                 (%f, %f, %f).\n", x , y , z);
+
+    float a = GET_ELEMENT(camera->fov, 0 , 0);
+    float b = GET_ELEMENT(camera->fov, 1 , 0);
+    Log_Out(INFO, "    Camera Field of View in Degrees: (Horizontal: %f, Vertical: %f).\n", a , b);
+    Log_Out(INFO, "\n");
 }

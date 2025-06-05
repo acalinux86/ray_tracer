@@ -1,4 +1,4 @@
-#include "render.h"
+#include "./render.h"
 
 // Allocates Memory for each pixel totaling (WIDTH*HEIGHT) pixels
 Pixel *pixels_alloc(int width, int height)

@@ -1,4 +1,4 @@
-#include "ray.h"
+#include "./ray.h"
 
 // Creates A New Ray
 Ray *new_ray(Vector3 origin, Vector3 direction)

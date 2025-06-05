@@ -3,7 +3,7 @@
 
 #define FASIC_IMPLEMENTATION
 #define UPPERCASE_
-#include "fasic.h"
+#include "./fasic.h"
 
 typedef Fasic_Matrix Vector2;
 
