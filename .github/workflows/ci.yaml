@@ -1,4 +1,4 @@
-name: C CI Pipeline
+name: Ray Tracer CI Pipeline
 
 on: [push, pull_request]
 
@@ -19,5 +19,5 @@ jobs:
         run: gcc -Wall -Werror -o main main.c
 
       # 4. Run the executable
-        - name: Execute program
-          run: ./main
+      - name: Execute program
+        run: ./main
