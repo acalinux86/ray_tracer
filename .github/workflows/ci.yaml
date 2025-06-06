@@ -1,0 +1,23 @@
+name: C CI Pipeline
+
+on: [push, pull_request]
+
+jobs:
+  build-and-run:
+    runs-on: ubuntu-latest
+    steps:
+      # 1. Checkout code
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2. Install build essentials
+      - name: Install dependencies
+        run: sudo apt-get update && sudo apt-get install -y build-essential
+
+      # 3. Compile the program
+      - name: Build C program
+        run: gcc -Wall -Werror -o main main.c
+
+      # 4. Run the executable
+        - name: Execute program
+          run: ./main

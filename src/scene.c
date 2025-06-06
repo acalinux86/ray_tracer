@@ -23,6 +23,8 @@ float compute_lighting(Scene *scene, Vector3 *P, Vector3 *N) {
         intensity += scene->light->intensity * diffuse;
     }
 
+    (void)P; // For Now
+
     UNLOAD(&light_dir);
     UNLOAD(&normal);
     return fmin(intensity, 1.0f); // Clamp to [0,1]
