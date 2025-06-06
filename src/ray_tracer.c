@@ -100,7 +100,7 @@ int main(const int argc, const char **argv)
         render_scene(&scene, camera, pixels, HEIGHT, WIDTH, Z, viewport);
 
         char buffer[MAX_BUFFER_LEN];
-        snprintf(buffer, sizeof(buffer), "images/frame_%i.png", i);
+        snprintf(buffer, sizeof(buffer), "images/frame_%0i.png", i);
         const char *image_path = buffer;
         if (!stbi_write_png(image_path, WIDTH, HEIGHT, 4, pixels, sizeof(Pixel)*WIDTH)) {
             Log_Out(ERROR, "Failed to Save Image: %s.\n", image_path);
