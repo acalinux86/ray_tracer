@@ -5,6 +5,6 @@
 #define UPPERCASE_
 #include "./fasic.h"
 
-bool build_animation(const char *images_path, const char *output_path, int framerate);
+bool build_animation(const char *images_dir, const char *output_path, int framerate);
 
 #endif // FFMPEG_H_

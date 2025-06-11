@@ -137,7 +137,7 @@ typedef struct {
     do {\
         if ((array)->count >= (array)->capacity) {\
             (array)->capacity = (array)->capacity == 0 ? INITIAL_CAPACITY_ARRAY : (array)->capacity*2;\
-            (array)->items = (typeof(*(array)->items)*)realloc((array)->items, sizeof(*(array)->items)*(array)->capacity);\
+            (array)->items = realloc((array)->items, sizeof(*(array)->items)*(array)->capacity);\
         }\
         (array)->items[(array)->count++] = item;\
     } while(0)

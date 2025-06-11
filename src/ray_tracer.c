@@ -6,6 +6,7 @@
 #include "./scene.h"
 #include "./camera.h"
 #include "./render.h"
+#include "./ffmpeg.h"
 
 #define STB_IMAGE_WRITE_IMPLEMENTATION
 #include "./stb_image_write.h"
@@ -20,9 +21,10 @@
 #define RED     ((Color){255, 0,   0,   255})
 #define BLUE    ((Color){0,   0,   255, 255})
 #define BLACK   ((Color){0,   0,   0 ,  255})
-
+#define ORANGE  ((Color){255, 117, 0,   255})
 #define YELLOW  ((Color){255, 255, 0,   255})
-#define U  ((Color){0, 255, 255,   255})
+#define CYAN    ((Color){0,   255, 255, 255})
+#define PURPLE  ((Color){255, 0,   255, 255})
 
 // Viewport
 #define viewport (Create_Vector3(6.0f, 6.0f, Z))
@@ -36,23 +38,23 @@ int main(const int argc, const char **argv)
 
     const int WIDTH   = atoi(argv[1]);
     const int HEIGHT  = atoi(argv[2]);
-    const int SAMPLES = atoi(argv[3]);
+    const int FRAME_RATE = atoi(argv[3]);
+
+    const int SAMPLES = 4;
 
     Log_Out(INFO, "Hello, World From Ray Tracer.\n");
 
     Objects objects = {0};
-    Sphere *sphere_white = new_sphere(Create_Vector3(-4.0f , 0.0f, 5.0f), 0.5f,  WHITE);
-    Sphere *sphere_white1 = new_sphere(Create_Vector3(-3.0f , 0.0f, 5.0f), 0.5f,  WHITE);
-    Sphere *sphere_white2 = new_sphere(Create_Vector3(-2.0f , 0.0f, 5.0f), 0.5f,  WHITE);
-    Sphere *sphere_white3 = new_sphere(Create_Vector3(-1.0f , 0.0f, 5.0f), 0.5f,  WHITE);
-    Sphere *sphere_white4 = new_sphere(Create_Vector3(0.0f , 0.0f, 5.0f), 0.5f,  WHITE);
-    Sphere *sphere_white5 = new_sphere(Create_Vector3(1.0f , 0.0f, 5.0f), 0.5f,  WHITE);
-    Sphere *sphere_white6 = new_sphere(Create_Vector3(2.0f , 0.0f, 5.0f), 0.5f,  WHITE);
-    Sphere *sphere_white7 = new_sphere(Create_Vector3(3.0f , 0.0f, 5.0f), 0.5f,  WHITE);
-    Sphere *sphere_white8 = new_sphere(Create_Vector3(4.0f , 0.0f, 5.0f), 0.5f,  WHITE);
+    Sphere *sphere_white1 = new_sphere(Create_Vector3(-3.0f , 0.0f, 5.0f), 0.5f, WHITE);
+    Sphere *sphere_white2 = new_sphere(Create_Vector3(-2.0f , 0.0f, 5.0f), 0.5f, GREEN);
+    Sphere *sphere_white3 = new_sphere(Create_Vector3(-1.0f , 0.0f, 5.0f), 0.5f, RED);
+    Sphere *sphere_white4 = new_sphere(Create_Vector3(0.0f , 0.0f, 5.0f), 0.5f, BLUE);
+    Sphere *sphere_white5 = new_sphere(Create_Vector3(1.0f , 0.0f, 5.0f), 0.5f, ORANGE);
+    Sphere *sphere_white6 = new_sphere(Create_Vector3(2.0f , 0.0f, 5.0f), 0.5f, YELLOW);
+    Sphere *sphere_white7 = new_sphere(Create_Vector3(3.0f , 0.0f, 5.0f), 0.5f, CYAN);
+    Sphere *sphere_white8 = new_sphere(Create_Vector3(4.0f , 0.0f, 5.0f), 0.5f, PURPLE);
 
     // Create temporary objects on stack
-    Object obj_white = sphere_to_object(sphere_white);
     Object obj_white1 = sphere_to_object(sphere_white1);
     Object obj_white2   = sphere_to_object(sphere_white2);
     Object obj_white3  = sphere_to_object(sphere_white3);
@@ -62,7 +64,6 @@ int main(const int argc, const char **argv)
     Object obj_white7  = sphere_to_object(sphere_white7);
     Object obj_white8  = sphere_to_object(sphere_white8);
 
-    insert_object(&objects, &obj_white);
     insert_object(&objects, &obj_white1);
     insert_object(&objects, &obj_white2);
     insert_object(&objects, &obj_white3);
@@ -115,9 +116,15 @@ int main(const int argc, const char **argv)
         UNLOAD(&dir);
     }
 
+    const char *image_path = "images";
+    const char *video_path = "videos/animation.mp4";
+    if (!build_animation(image_path, video_path, FRAME_RATE)) {
+        Log_Out(ERROR, "Failed to Render Video: %s.\n", video_path);
+        return 1;
+    }
+
     // Free Resources
-    free_sphere(sphere_white);
     free(objects.items);
-//    UNLOAD(&viewport);
+    // UNLOAD(&viewport);
     return 0;
 }

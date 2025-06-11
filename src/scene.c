@@ -58,7 +58,10 @@ Color trace_ray(Scene *scene, Ray *ray, float t_min, float t_max)
     Vector3 N_norm = Vector3_Normalize(&N);
 
     Color color = {0};
-    if (sphere) color = color_intensity_mul(sphere->color, compute_lighting(scene, &P , &N_norm));
+    if (sphere) {
+        color = color_intensity_mul(sphere->color, compute_lighting(scene, &P , &N_norm));
+        color.a = 255;
+    }
 
     UNLOAD(&ray_close);
     UNLOAD(&N);
@@ -77,7 +80,7 @@ void render_scene(Scene *scene, Camera *camera, Pixel *pixels, int height, int w
             Vector3 origin = Create_Vector3(GET_ELEMENT(camera->Position, 0 , 0), GET_ELEMENT(camera->Position, 1 , 0), GET_ELEMENT(camera->Position, 2 , 0));
             Ray *ray = new_ray(origin, view);
             Color color = trace_ray(scene, ray, 1, FLT_MAX);
-            int x = i + width / 2;
+            int x = i + width  / 2 ;
             int y = j + height / 2;
             if (x >= 0 && x < width && y >= 0 && y < height) {
                 int index = y * width + x;

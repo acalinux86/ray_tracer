@@ -24,5 +24,4 @@ float compute_lighting(Scene *scene, Vector3 *P, Vector3 *N);
 Color trace_ray(Scene *scene, Ray *ray, float t_min, float t_max);
 Color sample_pixel(Scene *scene, Camera *camera, float x, float y, int width, int height, int distance, Vector3 viewport);
 void render_scene(Scene *scene, Camera *camera, Pixel *pixels, int height, int width, int distance, Vector3 viewport);
-
 #endif /*SCENE_H*/

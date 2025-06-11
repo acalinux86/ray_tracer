@@ -25,7 +25,7 @@ void put_pixel(Pixel *pixels, int index, Color color)
     pixels[index].r = color.r;
     pixels[index].g = color.g;
     pixels[index].b = color.b;
-    pixels[index].a = color.a;
+    pixels[index].a = 255;
 }
 
 // Writes to the pixels array, each pixel of the sphere that has intersected the ray

@@ -9,3 +9,6 @@ obj/
 
 # Ignore Image Folder
 images/
+
+# Rendered Videos Folder
+videos/

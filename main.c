@@ -1,12 +1,13 @@
 #define FASIC_IMPLEMENTATION
 #include "./thirdparty/fasic.h"
 
-#define BUILD_DIR "build/"  // Build Directory
+#define BUILD_DIR "build/"  // Build  Directory
 #define SRC_DIR   "src/"    // Source Directory
 #define VEC_DIR   "vector/" // Vector Directory
 #define OBJ_DIR   "obj/"    // Object Directory
-#define LEX_DIR   "lexer/"  // Lexer Directory
+#define LEX_DIR   "lexer/"  // Lexer  Directory
 #define IMG_DIR   "images/" // Images Directory
+#define VID_DIR   "videos/" // Videos Directory
 
 // C Compiler
 const char *CC = "gcc";
@@ -23,6 +24,9 @@ int main(void)
 
     // Images Folder: Directory For storing images
     if (!make_new_directory(IMG_DIR)) return 1;
+
+    // Videos Folder: Directory For storing rendered videos
+    if (!make_new_directory(VID_DIR)) return 1;
 
     Fasic_Cmd cmd = {0};
 
@@ -71,7 +75,7 @@ int main(void)
     cmd.count = 0;
 
     // Build Scene File
-    const char *build_scene[] = {CC, "-Wall", "-Wextra", "-ggdb", "-std=c17", "-D_DEFAULT_SOURCE", "-I./thirdparty/", "-I./vector/", "-c", SRC_DIR"scene.c", "-o", OBJ_DIR"scene.o","-lm" ,NULL};
+    const char *build_scene[] = {CC, "-Wall", "-Werror", "-Wextra", "-ggdb", "-std=c17", "-D_DEFAULT_SOURCE", "-I./thirdparty/", "-I./vector/", "-c", SRC_DIR"scene.c", "-o", OBJ_DIR"scene.o","-lm" ,NULL};
     append_to_array_many(&cmd, build_scene);
     if (!build_cmd(&cmd)) return 1;
     cmd.count = 0;
@@ -89,16 +93,17 @@ int main(void)
     cmd.count = 0;
 
     // Build Ffmpeg File
-    const char *build_ffmpeg[] = {CC, "-Wall", "-Werror", "-Wextra", "-ggdb", "-std=c17", "-D_DEFAULT_SOURCE", "-I./thirdparty/", "-c", LEX_DIR"ffmpeg.c", "-o", OBJ_DIR"ffmpeg.o", "-lm",NULL};
+    const char *build_ffmpeg[] = {CC, "-Wall", "-Werror", "-Wextra", "-ggdb", "-std=c17", "-D_DEFAULT_SOURCE", "-I./thirdparty/", "-c", SRC_DIR"ffmpeg.c", "-o", OBJ_DIR"ffmpeg.o", "-lm",NULL};
     append_to_array_many(&cmd, build_ffmpeg);
     if (!build_cmd(&cmd)) return 1;
     cmd.count = 0;
 
     // Build Main Ray Tracer Program
-    const char *build_ray_tracer[] = {CC, "-Wall", "-Ofast", "-ggdb", "-I./thirdparty/", "-I./vector/", "-I./lexer/", "-I./stb/",OBJ_DIR"vector2.o", OBJ_DIR"vector3.o", OBJ_DIR"camera.o", OBJ_DIR"light.o", OBJ_DIR"ray.o", OBJ_DIR"render.o", OBJ_DIR"color.o", OBJ_DIR"shapes.o", OBJ_DIR"scene.o", OBJ_DIR"lexer.o", SRC_DIR"ray_tracer.c", "-o", BUILD_DIR"ray_tracer", "-lm",NULL};
+    const char *build_ray_tracer[] = {CC, "-Wall", "-Ofast", "-ggdb", "-I./thirdparty/", "-I./vector/", "-I./lexer/", "-I./stb/",OBJ_DIR"vector2.o", OBJ_DIR"vector3.o", OBJ_DIR"camera.o", OBJ_DIR"light.o", OBJ_DIR"ray.o", OBJ_DIR"render.o", OBJ_DIR"color.o", OBJ_DIR"shapes.o", OBJ_DIR"scene.o", OBJ_DIR"lexer.o", OBJ_DIR"ffmpeg.o", SRC_DIR"ray_tracer.c", "-o", BUILD_DIR"ray_tracer", "-lm",NULL};
     append_to_array_many(&cmd, build_ray_tracer);
     if (!build_cmd(&cmd)) return 1;
     cmd.count = 0;
 
     return 0;
+
 }
